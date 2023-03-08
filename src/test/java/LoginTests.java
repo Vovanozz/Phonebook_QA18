@@ -21,9 +21,8 @@ public class LoginTests extends TestBase {
         openLoginRegistrationForm();
         fillLoginRegistrationForm(email,password);
         submitLogin();
-        pause(5000);
         Assert.assertFalse(isLogged());
-        Assert.assertFalse(isElementPresent(By.xpath("//a[@href='/contacts']")));
+        Assert.assertTrue(isErrorMessageDisplayed("Wrong email or password"));
     }
     @Test
     public void loginNegativeTestPassword(){
@@ -32,9 +31,8 @@ public class LoginTests extends TestBase {
         openLoginRegistrationForm();
         fillLoginRegistrationForm(email,password);
         submitLogin();
-        pause(5000);
         Assert.assertFalse(isLogged());
-        Assert.assertFalse(isElementPresent(By.xpath("//a[@href='/add']")));
+        Assert.assertTrue(isErrorMessageDisplayed("Wrong email or password"));
     }
     @Test
     public void loginUnregisterUserTest(){
@@ -43,9 +41,8 @@ public class LoginTests extends TestBase {
         openLoginRegistrationForm();
         fillLoginRegistrationForm(email,password);
         submitLogin();
-        pause(5000);
         Assert.assertFalse(isLogged());
-        Assert.assertFalse(isElementPresent(By.xpath("//a[@href='/add']")));
+        Assert.assertTrue(isErrorMessageDisplayed("Wrong email or password"));
 
     }
 

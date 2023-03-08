@@ -45,9 +45,8 @@ public class RegistrationTests extends TestBase{
         String password="Vov12345$";
         fillLoginRegistrationForm(email,password);
         submitRegistration();
-        pause(5000);
         Assert.assertFalse(isLogged());
-        Assert.assertTrue(isElementPresent(By.xpath("//div[.='Registration failed with code 400']")));
+        Assert.assertTrue(isErrorMessageDisplayed("Wrong email or password format"));
 
 
 
@@ -60,9 +59,8 @@ public class RegistrationTests extends TestBase{
         String password="vov";
         fillLoginRegistrationForm(email,password);
         submitRegistration();
-        pause(5000);
         Assert.assertFalse(isLogged());
-        Assert.assertTrue(isElementPresent(By.xpath("//div[.='Registration failed with code 400']")));
+        Assert.assertTrue(isErrorMessageDisplayed("Wrong email or password format"));
     }
     @Test
     public void registrationUserAlreadyExists(){
@@ -72,9 +70,8 @@ public class RegistrationTests extends TestBase{
         String password="Vova1234$";
         fillLoginRegistrationForm(email,password);
         submitRegistration();
-        pause(5000);
         Assert.assertFalse(isLogged());
-        Assert.assertTrue(isElementPresent(By.xpath("//div[.='Registration failed with code 409']")));
+        Assert.assertTrue(isErrorMessageDisplayed("User already exist"));
     }
 
 
