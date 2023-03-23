@@ -1,7 +1,9 @@
 package tests;
 
+import models.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -20,11 +22,15 @@ public class RegistrationTests extends TestBase{
     @Test
     public void regPositiveTest(){
 
-        app.getUser().openLoginRegistrationForm();
+       // String email="vov"+i+"@gmail.com";
+     // String password="Vov12345$";
         int i= (int) ((System.currentTimeMillis()/1000)%3600);
-       String email="vov"+i+"@gmail.com";
-       String password="Vov12345$";
-        app.getUser().fillLoginRegistrationForm(email,password);
+        User user= User.builder()
+                .email("vov"+i+"@gmail.com")
+                .password("Vov12345$")
+                .build();
+        app.getUser().openLoginRegistrationForm();
+        app.getUser().fillLoginRegistrationForm(user);
         app.getUser().submitRegistration();
         app.getUser().pause(5000);
         Assert.assertTrue(app.getUser().isLogged());
@@ -34,11 +40,15 @@ public class RegistrationTests extends TestBase{
 
     @Test
     public void WrongEmailRegistration(){
-       app.getUser().openLoginRegistrationForm();
+//        String email="vov"+i+"gmail.com";
+//        String password="Vov12345$";
         int i= (int) ((System.currentTimeMillis()/1000)%3600);
-        String email="vov"+i+"gmail.com";
-        String password="Vov12345$";
-        app.getUser().fillLoginRegistrationForm(email,password);
+        User user= User.builder()
+                .email("vov"+i+"gmail.com")
+                .password("Vov12345$")
+                .build();
+       app.getUser().openLoginRegistrationForm();
+        app.getUser().fillLoginRegistrationForm(user);
         app.getUser().submitRegistration();
         Assert.assertFalse(app.getUser().isLogged());
         Assert.assertTrue(app.getUser().isErrorMessageDisplayed("Wrong email or password format"));
@@ -48,26 +58,34 @@ public class RegistrationTests extends TestBase{
     }
     @Test
     public void WrongPasswordRegistration(){
-        app.getUser().openLoginRegistrationForm();
+//        String email="vov"+i+"gmail.com";
+//        String password="vov";
         int i= (int) ((System.currentTimeMillis()/1000)%3600);
-        String email="vov"+i+"gmail.com";
-        String password="vov";
-        app.getUser().fillLoginRegistrationForm(email,password);
+        User user= User.builder()
+                .email("vov"+i+"gmail.com")
+                .password("vov")
+                .build();
+        app.getUser().openLoginRegistrationForm();
+        app.getUser().fillLoginRegistrationForm(user);
         app.getUser().submitRegistration();
         Assert.assertFalse(app.getUser().isLogged());
         Assert.assertTrue(app.getUser().isErrorMessageDisplayed("Wrong email or password format"));
     }
     @Test
     public void registrationUserAlreadyExists(){
+//        String email="v762900819@gmail.com";
+//        String password="Vova1234$";
+       User user= User.builder()
+               .email("v762900819@gmail.com")
+               .password("Vova1234$")
+               .build();
         app.getUser().openLoginRegistrationForm();
-
-        String email="v762900819@gmail.com";
-        String password="Vova1234$";
-        app.getUser().fillLoginRegistrationForm(email,password);
+        app.getUser().fillLoginRegistrationForm(user);
         app.getUser().submitRegistration();
         Assert.assertFalse(app.getUser().isLogged());
         Assert.assertTrue(app.getUser().isErrorMessageDisplayed("User already exist"));
     }
+
 
 
 //    @AfterMethod

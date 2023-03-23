@@ -13,26 +13,12 @@ public class TestBase {
         app.init();
 
     }
-//    public void init(){
-//        wd=new ChromeDriver();
-//        wd.navigate().to("https://telranedu.web.app/home");
-//        wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-//    }
+
     @AfterSuite
     public void tearDown(){
         //wd.quit();
-        app.stop();
+        //app.stop();
     }
 
 
-
-
-
-//    public boolean isErrorMessageDisplayed(String message){
-//        Alert alert=wd.switchTo().alert();
-//        String text=alert.getText();
-//        System.out.println(text);
-//        alert.accept();
-//        return text.contains(message);
-//    }
 }
