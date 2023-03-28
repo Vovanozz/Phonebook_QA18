@@ -4,6 +4,8 @@ import models.User;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HelperUser extends HelperBase{
     public HelperUser(WebDriver wd) {
@@ -42,5 +44,23 @@ public class HelperUser extends HelperBase{
         System.out.println(text);
         alert.accept();
         return text.contains(message);
+    }
+    public boolean isAlertPresent(){
+        Alert alert=new WebDriverWait(wd,10)
+                .until(ExpectedConditions.alertIsPresent());
+        if(alert==null)return false;
+        else {
+            wd.switchTo().alert();
+            System.out.println(alert.getText());
+            alert.accept();
+            return true;
+        }
+    }
+    public boolean isErrorFormatMessage(){
+        Alert alert=new WebDriverWait(wd,10)
+                .until(ExpectedConditions.alertIsPresent());
+        return alert.getText().contains("Wrong email or password format");
+
+
     }
 }

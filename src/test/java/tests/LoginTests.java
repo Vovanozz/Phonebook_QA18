@@ -24,8 +24,6 @@ public class LoginTests extends TestBase {
     }
     @Test
     public void loginNegativeTestEmail(){
-//        String email="v762900819gmail.com";
-//        String password="Vova1234$";
         User user= User.builder()
                 .email("v762900819gmail.com")
                 .password("Vova1234$")
@@ -38,8 +36,6 @@ public class LoginTests extends TestBase {
     }
     @Test
     public void loginNegativeTestPassword(){
-//        String email="v762900819@gmail.com";
-//        String password="Vov";
         User user= User.builder()
                 .email("v762900819@gmail.com")
                 .password("Vov")
@@ -52,8 +48,6 @@ public class LoginTests extends TestBase {
     }
     @Test
     public void loginUnregisterUserTest(){
-//        String email="vov19@gmail.com";
-//        String password="Vov1234$";
         User user= User.builder()
                 .email("vov19@gmail.com")
                 .password("Vov1234$")

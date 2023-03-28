@@ -22,17 +22,17 @@ public class RegistrationTests extends TestBase{
     @Test
     public void regPositiveTest(){
 
-       // String email="vov"+i+"@gmail.com";
-     // String password="Vov12345$";
         int i= (int) ((System.currentTimeMillis()/1000)%3600);
         User user= User.builder()
                 .email("vov"+i+"@gmail.com")
                 .password("Vov12345$")
                 .build();
+        logger.info("registrationPositiveTest starts with: " + user.getEmail() + " & " + user.getPassword());
         app.getUser().openLoginRegistrationForm();
         app.getUser().fillLoginRegistrationForm(user);
         app.getUser().submitRegistration();
         app.getUser().pause(5000);
+        logger.info("registrationPositiveTest completed");
         Assert.assertTrue(app.getUser().isLogged());
         Assert.assertTrue(app.getUser().isElementPresent(By.xpath("//button[.='Sign Out']")));
 
@@ -40,8 +40,6 @@ public class RegistrationTests extends TestBase{
 
     @Test
     public void WrongEmailRegistration(){
-//        String email="vov"+i+"gmail.com";
-//        String password="Vov12345$";
         int i= (int) ((System.currentTimeMillis()/1000)%3600);
         User user= User.builder()
                 .email("vov"+i+"gmail.com")
@@ -51,15 +49,14 @@ public class RegistrationTests extends TestBase{
         app.getUser().fillLoginRegistrationForm(user);
         app.getUser().submitRegistration();
         Assert.assertFalse(app.getUser().isLogged());
-        Assert.assertTrue(app.getUser().isErrorMessageDisplayed("Wrong email or password format"));
-
+       // Assert.assertTrue(app.getUser().isErrorMessageDisplayed("Wrong email or password format"));
+        Assert.assertTrue(app.getUser().isErrorFormatMessage());
+        Assert.assertTrue(app.getUser().isAlertPresent());
 
 
     }
     @Test
     public void WrongPasswordRegistration(){
-//        String email="vov"+i+"gmail.com";
-//        String password="vov";
         int i= (int) ((System.currentTimeMillis()/1000)%3600);
         User user= User.builder()
                 .email("vov"+i+"gmail.com")
@@ -73,8 +70,6 @@ public class RegistrationTests extends TestBase{
     }
     @Test
     public void registrationUserAlreadyExists(){
-//        String email="v762900819@gmail.com";
-//        String password="Vova1234$";
        User user= User.builder()
                .email("v762900819@gmail.com")
                .password("Vova1234$")
